@@ -1,10 +1,10 @@
 // Controllers for project
 
 
-angular.module('Ping.app.controllers', []);
+angular.module('Ping.app.controllers', [])
 
-.controller('PingsController, function($scope){
+.controller('PingsController', function($scope){
   $scope.sendPing = function() {
     console.log('test'); 
   };
-})
+});
