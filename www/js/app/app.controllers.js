@@ -222,3 +222,8 @@ app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $wind
   };
 });
 
+.controller('PingsController, function($scope){
+  $scope.sendPing = function() {
+    console.log('test'); 
+  };
+})
