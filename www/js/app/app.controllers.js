@@ -3,6 +3,23 @@
 
 var app = angular.module('Ping.app.controllers', []);
 
+//app.run(function($ionicPlatform){
+//  $ionicPlatfrom.ready(function() {
+//    var push = new Ionic.push({
+//      "debug": true 
+//    });
+//    push.register(function(token) {
+//      console.log("Device token: ", token.token);
+//    });
+//  });
+//});
+//
+//app.controller('PingsController', function($scope){
+//  $scope.sendPing = function() {
+//    console.log('test'); 
+//  };
+//})
+
 app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $window, $http, $cordovaSocialSharing, $cordovaContacts, MessageTpls, $cordovaFile, FriendsList) {
   var itemsRef = new Firebase("https://shining-heat-1764.firebaseio.com/items");
   var Items = $firebaseArray(itemsRef);
@@ -219,6 +236,5 @@ app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $wind
         console.log(error);
       }
     });
-  };
-});
+
 
