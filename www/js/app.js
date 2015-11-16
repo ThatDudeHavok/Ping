@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 angular.module('Ping', [
-    'ionic', 
+    'ionic','ionic.service.core', 
     'Ping.app.controllers',
     'Ping.app.directives',
     'Ping.app.services' 
