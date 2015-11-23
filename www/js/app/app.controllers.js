@@ -6,6 +6,11 @@ var app = angular.module('Ping.app.controllers', []);
 //app.run(function($ionicPlatform){
 //  $ionicPlatfrom.ready(function() {
 //    var push = new Ionic.push({
+//.run(function($ionicPlatform){
+//
+//  $ionicPlatfrom.ready(function() {
+//
+//    var push = new Ionic.Push({
 //      "debug": true 
 //    });
 //    push.register(function(token) {
