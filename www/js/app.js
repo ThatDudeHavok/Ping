@@ -5,20 +5,47 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('Ping', [
     'ionic',
-    'ionic.service.core', 
+    'ionic.service.core',
     'Ping.app.controllers',
     'Ping.app.directives',
     'Ping.app.services' 
 ])
 
 .run(function($ionicPlatform) {
+  
   $ionicPlatform.ready(function() {
-    // on docs.ionic.io/docs/push-usage just after plugin options
-    // section is where to pick up.
+    
+    // Kick off the platform web  client. 
+    Ionic.io();
+
+    // This will give you a fresh user or the previously
+    // saved 'current user'.
+    var user = Ionic.User.current();
+    
+    // If the user doesn't have an id, you'll need to give it one. 
+    if(!user.id) {
+      user.id = Ionic.User.anonymousId();
+      // user.id = 'your-custom-user-id';
+    }
+    
+    // Persist the user.
+    // Reference for more in-depth user jazz: 
+    // http://docs.ionic.io/docs/user-quick-start
+    user.save(); 
+    
+    //
+    // Maybe thing about having the ring around the portait be red or green. 
+    // Whether or not a user is available to ping would dictate that color.
+    // A green ring would indicate they can be bothered, whereas red would
+    // indicate that they cannot talk. 
+    //
+    
     var settings = new Ionic.IO.Settings();
     var app_id = settings.get('app_id'); 
+    
     console.log('SETTINGS:', settings);
     console.log('APP_ID', app_id); 
+   
     var push = new Ionic.Push({
       "debug": false,
       "onNotification": function(notification) {
@@ -55,7 +82,7 @@ angular.module('Ping', [
       StatusBar.styleDefault();
     }
   });
+})
+.controller('PingController', function() {
+
 });
-//.controller('PingController', function() {
-//
-//});
