@@ -11,7 +11,7 @@
     -->
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
-<script src="lib/ionic-platform-web-client/dist/ionic.io.bundle.min.js"></script>
+    <script src="lib/ionic-platform-web-client/dist/ionic.io.bundle.min.js"></script>
     <!-- cordova script (this will be a 404 during development) -->
     <!-- Cordova is bootstrapped by ionic-platform-web-client, uncomment this if you remove ionic-platform-web-client... -->
 <!-- <script src="cordova.js"></script> -->
@@ -20,16 +20,16 @@
     <script src="js/app/app.controllers.js"></script>
     <script src="js/common/common.directives.js"></script> 
     <script src="js/app/app.services.js"></script>   
+    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
   </head>
   <body ng-app="Ping">
     <ion-pane>
-      <ion-header-bar align-title="center" class="bar-stable">
-        <h1 class="title">Pings</h1>
+      <ion-header-bar align-title="center" class="bar bar-header bar-royal">
+          <h1 class="title">PING</h1>
       </ion-header-bar>
-      <ion-content>
-      <style>.min {width: 40px; height: 20px}</style> 
-        <div>
-          <button ng-click="sendPing()">Send that Ping.... LIKE A BOSS!</button> 
+      <ion-content ng-controller="PingController">
+        <div ng-repeat="notification in notifications">
+          {{ notification }}      
         </div> 
       </ion-content>
     </ion-pane>
