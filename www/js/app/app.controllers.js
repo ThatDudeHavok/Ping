@@ -1,6 +1,10 @@
-// Controllers for project
+angular.module('Ping.app.controllers', [])
 
+.controller('PingController', 
+    function($scope, $cordovaPush, $cordovaDialogs, $cordovaMedia, 
+             $cordovaToast, ionPlatform, $http) {
 
+<<<<<<< HEAD
 var app = angular.module('Ping.app.controllers', []);
 
 //app.run(function($ionicPlatform){
@@ -243,3 +247,9 @@ app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $wind
     });
 
 
+//  console.log($cordovaPush);
+
+  $scope.notifications = [];
+
+  });
+});
