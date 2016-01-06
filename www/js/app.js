@@ -7,6 +7,7 @@ angular.module('Ping', [
     'ngCordova',
     'ionic',
     'ionic.service.core',
+    'ionic.service.push',
     'Ping.app.controllers',
     'Ping.app.directives',
     'Ping.app.services' 
@@ -22,10 +23,6 @@ angular.module('Ping', [
     if(window.StatusBar) {
       StatusBar.styleDefault();
     }
-   
-    //
-    // Note - don't use sounds untill default sound is added to app
-    //
 
     var push = new Ionic.Push({
       "debug": true,
@@ -46,11 +43,10 @@ angular.module('Ping', [
         } 
       } 
     });
-    
+
     push.register(function(token) {
 
       console.log("Device token", token.token);
-      console.log('spaaaget!!!!'); 
     }); 
    
   })
