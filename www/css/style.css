@@ -2,6 +2,7 @@
 
 body {
   font-family: 'PT Sans', sans-serif;
+  font-weight: 400;
 }
 .ping-app {
   background-image: url("../img/ping_bg.png");
@@ -13,6 +14,8 @@ body {
 .main-menu {
   height: 93.75vh;
   margin: 3.125vh 5vw;
+  display: flex;
+  flex-flow: column;
   border-radius: 25px;
   border-style: solid;
   border-width: 1px;
@@ -27,19 +30,64 @@ body {
   color: white;
   padding: 12px 0px;
   font-size: 14pt;
-  background-color: rgba(0,0,0,0);
+  background-color: transparent;
   border-bottom-style: solid !important;
   border-bottom-width: 2px !important;
   border-bottom-color: white !important;
 }
 
 .contact-list {
+  background: rgba(255, 255, 255, 0.4);
+  flex: 1;
+  overflow: scroll;
+  height: 100%;
+}
+
+.contact-item {
+  width: 33.33%;
+}
+
+.portrait {
+  width: 64px;
+  height: 64px;
+  margin: 10px auto;
+  background-color: white;
+  border-radius: 32px;
+  -webkit-border-radius: 32px;
+  -moz-border-radius: 32px;
 }
 
 .menu-footer {
-  position: absolute;
   height: 67px;
   width: 100%;
-  bottom: 0px;
-  background-color: rgba(0,0,0,1);
+  color: white;
+  display: flex;
+  flex-flow: row;
+  background-color: transparent;
+  border-top-style: solid !important;
+  border-top-width: 1px !important;
+  border-top-color: rgba(255, 255, 255, 0.6) !important;
 }
+
+.left-footer-button {
+  height: 67px;
+  width: 67px;
+  background-image: url("../img/left_button.png");
+  background-size: 67px 67px;
+}
+
+.your-pings {
+  background-color: #68393c;
+  text-align: center;
+  font-size: 18pt;
+  font-weight: 700;
+  flex: 1;
+}
+
+.right-footer-button {
+  height: 67px;
+  width: 67px;
+  background-image: url("../img/right_button.png");
+  background-size: 67px 67px;
+}
+

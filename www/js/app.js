@@ -7,7 +7,8 @@ angular.module('Ping', [
     'ionic', 
     'Ping.app.controllers',
     'Ping.app.directives',
-    'Ping.app.services' 
+    'Ping.app.services',
+    'firebase'
 ])
 
 .run(function($ionicPlatform) {
