@@ -8,7 +8,8 @@ angular.module('Ping', [
     'Ping.app.controllers',
     'Ping.app.directives',
     'Ping.app.services',
-    'firebase'
+    'firebase',
+    'ngCordova'
 ])
 
 .run(function($ionicPlatform) {
@@ -17,6 +18,11 @@ angular.module('Ping', [
     // for form inputs)
     if(window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+    }
+    if (window.cordova && window.cordova.platformId == "browser") {
+      var appId = '223814417952799';
+      facebookConnectPlugin.browserInit(appId);
+      // version is optional. It refers to the version of API you may want to use.
     }
     if(window.StatusBar) {
       StatusBar.styleDefault();

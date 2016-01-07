@@ -3,7 +3,7 @@
 
 var app = angular.module('Ping.app.controllers', []);
 
-app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $window, $http) {
+app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $window, $http, $cordovaFacebook) {
   var itemsRef = new Firebase("https://shining-heat-1764.firebaseio.com/items");
   var Items = $firebaseArray(itemsRef);
   $scope.items = Items;
@@ -28,15 +28,25 @@ app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $wind
     $window.location.reload(true);
   };
 
-  $scope.getFriends = function() {
+  $scope.getPicture = function() {
     var url = 'https://graph.facebook.com/v2.5/me/picture?type=normal&access_token=' + $scope.token;
     $http.get(url,{responseType: "arraybuffer"}).then(function(res) {
       console.log(res);
-      var blob = new Blob([res.data], {type: "image/png"});
+      var blob = new Blob([res.data], {type: "image/jpeg"});
       $scope.profile = {
         'background-image': 'URL("' + URL.createObjectURL(blob) + '")',
         'background-size': '100% 100%'
       };
+    }).catch(function(err) {
+      throw err;
+    });
+  };
+
+
+  $scope.getFriends = function() {
+    var url = 'https://graph.facebook.com/v2.5/me/friends?access_token=' + $scope.token;
+    $http.get(url).then(function(res) {
+      console.log(res);
     }).catch(function(err) {
       throw err;
     });
