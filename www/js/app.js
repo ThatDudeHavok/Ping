@@ -19,13 +19,8 @@ angular.module('Ping', [
     if(window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
-    if (window.cordova && window.cordova.platformId == "browser") {
-      var appId = '223814417952799';
-      facebookConnectPlugin.browserInit(appId);
-      // version is optional. It refers to the version of API you may want to use.
-    }
     if(window.StatusBar) {
-      StatusBar.styleDefault();
+      StatusBar.hide();
     }
   });
-})
+});

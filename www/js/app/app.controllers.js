@@ -3,7 +3,7 @@
 
 var app = angular.module('Ping.app.controllers', []);
 
-app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $window, $http, $cordovaFacebook) {
+app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $window, $http) {
   var itemsRef = new Firebase("https://shining-heat-1764.firebaseio.com/items");
   var Items = $firebaseArray(itemsRef);
   $scope.items = Items;
@@ -26,6 +26,10 @@ app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $wind
   $scope.logout = function() {
     Auth.$unauth();
     $window.location.reload(true);
+  };
+
+  $scope.authFB = function() {
+    
   };
 
   $scope.getPicture = function() {
@@ -59,7 +63,7 @@ app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $wind
     Auth.$authWithOAuthRedirect("facebook", perms).then(function(authData) {
       // User successfully logged in
           console.log(authData);
-          $scope.token = authData.facebook.accessToken;
+          //$scope.token = authData.facebook.accessToken;
     }).catch(function(error) {
       if (error.code === "TRANSPORT_UNAVAILABLE") {
         Auth.$authWithOAuthPopup("facebook", perms).then(function(authData) {
