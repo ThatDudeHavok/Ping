@@ -79,7 +79,8 @@ body {
 .your-pings {
   background-color: #68393c;
   text-align: center;
-  font-size: 18pt;
+  line-height: 67px;
+  font-size: 16pt;
   font-weight: 700;
   flex: 1;
 }
