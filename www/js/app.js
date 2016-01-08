@@ -19,6 +19,7 @@ angular.module('Ping', [
     if(window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
+    ionic.Platform.fullScreen();
     if(window.StatusBar) {
       StatusBar.hide();
     }

@@ -3,7 +3,7 @@
 
 var app = angular.module('Ping.app.controllers', []);
 
-app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $window, $http) {
+app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $window, $http, $cordovaSocialSharing, $cordovaContacts, MessageTpls) {
   var itemsRef = new Firebase("https://shining-heat-1764.firebaseio.com/items");
   var Items = $firebaseArray(itemsRef);
   $scope.items = Items;
@@ -27,9 +27,24 @@ app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $wind
     Auth.$unauth();
     $window.location.reload(true);
   };
+  $scope.token = 'CAADLjtrgsB8BACdtn4FbjKxjger4YsMIXS0ojzZAuqqqdZBDLDl1Gu0jR4lo1mJhQZA8EDLJnxAc8hk2rNlGqQb6rCH1jhpbJtZAcrunTka4JHT1y1HYI4Bgp4yAr9i7XriYZCkezzBuHzvOD4QIuLmrDd77sOpJrtdBDsJImFcbn2N0R5nwOpPZB1554FuZCJZC9R3qaddX8AZDZD';
 
   $scope.authFB = function() {
     
+    $cordovaSocialSharing.shareViaSMS('galavanting around\n  (_|     (_|', '6086160254', function(res) {
+      console.log(res);
+    }, function(err) {
+      throw err;
+    });
+  };
+
+  $scope.messageTemplates = MessageTpls;
+
+  $scope.getAllContacts = function() {
+    $cordovaContacts.find({}).then(function(allContacts) { //omitting parameter to .find() causes all contacts to be returned
+      console.log(allContacts);
+      $scope.contacts = allContacts;
+    });
   };
 
   $scope.getPicture = function() {
