@@ -12,7 +12,7 @@ angular.module('Ping', [
     'ngCordova'
 ])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $cordovaStatusbar) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -20,6 +20,7 @@ angular.module('Ping', [
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
     ionic.Platform.fullScreen();
+    $cordovaStatusbar.hide();
     if(window.StatusBar) {
       StatusBar.hide();
     }

@@ -3,7 +3,7 @@
 
 var app = angular.module('Ping.app.controllers', []);
 
-app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $window, $http, $cordovaSocialSharing, $cordovaContacts, MessageTpls) {
+app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $window, $http, $cordovaSocialSharing, $cordovaContacts, MessageTpls, $cordovaFile) {
   var itemsRef = new Firebase("https://shining-heat-1764.firebaseio.com/items");
   var Items = $firebaseArray(itemsRef);
   $scope.items = Items;
@@ -43,6 +43,15 @@ app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $wind
   $scope.getAllContacts = function() {
     $cordovaContacts.find({}).then(function(allContacts) { //omitting parameter to .find() causes all contacts to be returned
       console.log(allContacts);
+      $cordovaFile.readAsArrayBuffer(cordova.file.tempDirectory, allContacts[2].photos[0].value.split('/').pop()).then(function(res) {
+        var blob = new Blob([res], {type: "image/jpeg"});
+        $scope.profile = {
+          'background-image': 'URL("' + URL.createObjectURL(blob) + '")',
+          'background-size': '100% 100%'
+        };
+      }).catch(function(err) {
+        throw err;
+      });
       $scope.contacts = allContacts;
     });
   };
