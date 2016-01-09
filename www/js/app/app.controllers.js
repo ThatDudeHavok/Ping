@@ -16,6 +16,9 @@ app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $wind
     }
   };
 
+  $scope.addContacts = function() {
+  };
+
   itemsRef.on('child_added', function(snap) {
     console.log(snap.val());
   });
@@ -40,10 +43,33 @@ app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $wind
 
   $scope.messageTemplates = MessageTpls;
 
+  $scope.pingContact = function(p, c) {
+    console.log(p, c);
+  };
+
+  $scope.contacts = [[]];
+
+  /* (function() {
+      var contacts = [];
+      var tmpc = [];
+      [1,2,3,4,5].forEach(function(e) {
+        if(tmpc.length === 3) {
+          contacts.push(tmpc);
+          tmpc = [];
+        }
+        tmpc.push(e);
+      });
+      contacts.push(tmpc);
+      if(tmpc.length === 3) contacts.push([]);
+      $scope.contacts = contacts;
+  })();
+  */
+
+  window.cordfile = $cordovaFile;
   $scope.getAllContacts = function() {
-    $cordovaContacts.find({}).then(function(allContacts) { //omitting parameter to .find() causes all contacts to be returned
+    $cordovaContacts.find({}).then(function(allContacts) {
       console.log(allContacts);
-      $cordovaFile.readAsArrayBuffer(cordova.file.tempDirectory, allContacts[2].photos[0].value.split('/').pop()).then(function(res) {
+      $cordovaFile.readAsArrayBuffer(cordova.file.tempDirectory, allContacts[91].photos[0].value.split('/').pop()).then(function(res) {
         var blob = new Blob([res], {type: "image/jpeg"});
         $scope.profile = {
           'background-image': 'URL("' + URL.createObjectURL(blob) + '")',
@@ -52,7 +78,23 @@ app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $wind
       }).catch(function(err) {
         throw err;
       });
-      $scope.contacts = allContacts;
+      return;
+      var contacts = [];
+      var tmpc = [];
+      allContacts.forEach(function(e) {
+        if(Array.isArray(e.phoneNumbers)) {
+          if(!e.phoneNumbers.length) return;
+        } else {
+          return console.log(e);
+        }
+        if(tmpc.length === 3) {
+          contacts.push(tmpc);
+          tmpc = [];
+        }
+        tmpc.push(e);
+      });
+      contacts.push(tmpc);
+      if(tmpc.length === 3) contacts.push([]);
     });
   };
 
