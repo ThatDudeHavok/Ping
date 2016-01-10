@@ -90,13 +90,11 @@ app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $wind
       var contactWidth = window.innerWidth * (.9/3);
       var ctx = document.createElement('canvas').getContext('2d');
 
-      //console.log(allContacts);
-
       allContacts.forEach(function(e, i) {
         if(Array.isArray(e.phoneNumbers)) {
           if(!e.phoneNumbers.length) return;
         } else {
-          return console.log(e);
+          return; // console.log(e);
         }
         if(tmpc.length === 3) {
           contacts.push(tmpc);
@@ -116,15 +114,22 @@ app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $wind
         e.displayname = txt;
 
         if(e.photos) {
-          $cordovaFile.readAsArrayBuffer(cordova.file.tempDirectory, e.photos[0].value.split('/').pop()).then(function(res) {
-            var blob = new Blob([res], {type: "image/jpeg"});
+          if(ionic.Platform.platform() === 'android') {
             $scope.profiles[e.id] = {
-              'background-image': 'url("' + URL.createObjectURL(blob) + '")',
+              'background-image': 'url("' + e.photos[0].value + '")',
               'background-size': '100% 100%'
             };
-          }).catch(function(err) {
-            throw err;
-          });
+          } else {
+            $cordovaFile.readAsArrayBuffer(cordova.file.tempDirectory, e.photos[0].value.split('/').pop()).then(function(res) {
+              var blob = new Blob([res], {type: "image/jpeg"});
+              $scope.profiles[e.id] = {
+                'background-image': 'url("' + URL.createObjectURL(blob) + '")',
+                'background-size': '100% 100%'
+              };
+            }).catch(function(err) {
+              throw err;
+            });
+          }
         }
 
         tmpc.push(e);
@@ -132,6 +137,8 @@ app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $wind
       contacts.push(tmpc);
 
       $scope.phoneContacts = contacts;
+    }).catch(function(err) {
+      throw err;
     });
   };
 
