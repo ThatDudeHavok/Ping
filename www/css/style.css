@@ -122,6 +122,25 @@ ion-pane {
   -webkit-flex: 1;
 }
 
+.add-selected-button {
+  height: 67px;
+  width: 50%;
+  background-image: url("../img/add_selected.png");
+  background-color: #68393c;
+  border-left-style: solid !important;
+  border-left-width: 1px !important;
+  border-left-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.cancel-add-button {
+  height: 67px;
+  width: 50%;
+  background-image: url("../img/cancel_add.png");
+  background-color: #68393c;
+  border-right-style: solid !important;
+  border-right-width: 1px !important;
+  border-right-color: rgba(255, 255, 255, 0.5) !important;
+}
 
 .right-footer-button {
   height: 67px;
