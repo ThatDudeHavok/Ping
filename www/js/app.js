@@ -21,6 +21,7 @@ angular.module('Ping', [
     }
     if(window.StatusBar) {
       ionic.Platform.fullScreen();
+      StatusBar.hide();
     }
   });
 });

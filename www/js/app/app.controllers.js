@@ -17,6 +17,15 @@ app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $wind
   };
 
   $scope.addContacts = function() {
+    $scope.state.id = 'addContacts';
+    $scope.getAllContacts();
+  };
+
+  $scope.addContactToFriendsList = function(p, c) {
+  };
+
+  $scope.addSelectedContacts = function() {
+    $scope.state.id = 'main';
   };
 
   itemsRef.on('child_added', function(snap) {
@@ -49,10 +58,10 @@ app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $wind
 
   $scope.contacts = [[]];
 
-  /* (function() {
+  /* (function(arr) {
       var contacts = [];
       var tmpc = [];
-      [1,2,3,4,5].forEach(function(e) {
+      arr.forEach(function(e) {
         if(tmpc.length === 3) {
           contacts.push(tmpc);
           tmpc = [];
@@ -62,26 +71,24 @@ app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $wind
       contacts.push(tmpc);
       if(tmpc.length === 3) contacts.push([]);
       $scope.contacts = contacts;
-  })();
+  })([1,2,3,4,5]);
   */
 
-  window.cordfile = $cordovaFile;
+  $scope.state = {
+    id: 'main'
+  };
+
+  $scope.profiles = [];
+
   $scope.getAllContacts = function() {
     $cordovaContacts.find({}).then(function(allContacts) {
-      console.log(allContacts);
-      $cordovaFile.readAsArrayBuffer(cordova.file.tempDirectory, allContacts[91].photos[0].value.split('/').pop()).then(function(res) {
-        var blob = new Blob([res], {type: "image/jpeg"});
-        $scope.profile = {
-          'background-image': 'URL("' + URL.createObjectURL(blob) + '")',
-          'background-size': '100% 100%'
-        };
-      }).catch(function(err) {
-        throw err;
-      });
-      return;
+
       var contacts = [];
       var tmpc = [];
-      allContacts.forEach(function(e) {
+      var contactWidth = window.innerWidth * (.9/3);
+      var ctx = document.createElement('canvas').getContext('2d');
+
+      allContacts.forEach(function(e, i) {
         if(Array.isArray(e.phoneNumbers)) {
           if(!e.phoneNumbers.length) return;
         } else {
@@ -91,11 +98,41 @@ app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $wind
           contacts.push(tmpc);
           tmpc = [];
         }
+
+        ctx.font = '10pt PT Sans';
+        var txt = e.name.formatted;
+        var width = ctx.measureText(txt).width;
+        var split = txt.split(' ');
+
+        if(width > contactWidth) {
+          if(split.length > 1) txt = split.slice(0, split.length-1).join(' ') + ' ' + split[split.length-1].substr(0, 1) + '.';
+        }
+
+        e.initials = split[0].substr(0, 1) + split[split.length-1].substr(0, 1);
+        e.displayname = txt;
+
+        if(e.photos) {
+          $cordovaFile.readAsArrayBuffer(cordova.file.tempDirectory, e.photos[0].value.split('/').pop()).then(function(res) {
+            var blob = new Blob([res], {type: "image/jpeg"});
+            $scope.profiles[e.id] = {
+              'background-image': 'url("' + URL.createObjectURL(blob) + '")',
+              'background-size': '100% 100%'
+            };
+          }).catch(function(err) {
+            throw err;
+          });
+        }
+
         tmpc.push(e);
       });
       contacts.push(tmpc);
-      if(tmpc.length === 3) contacts.push([]);
+
+      $scope.phoneContacts = contacts;
     });
+  };
+
+  $scope.getIndex = function(p, c) {
+    return p*3+c;
   };
 
   $scope.getPicture = function() {

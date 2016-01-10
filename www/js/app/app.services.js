@@ -2,6 +2,12 @@
 
 angular.module('Ping.app.services', [])
 
+.factory('FriendsList', function() {
+  var FriendsList = [];
+
+  return FriendsList;
+})
+
 .factory('MessageTpls', function() {
 
   var tpls = [
@@ -11,7 +17,7 @@ angular.module('Ping.app.services', [])
     + '\n    .-\'_|    ,'
     + '\n   _| (_|   _|\\'
     + '\n  (_|      (_|',
-      keywords: ['music', 'musical', 'notes']
+      keywords: ['music', 'musical', 'notes', 'song']
     },
     {
 

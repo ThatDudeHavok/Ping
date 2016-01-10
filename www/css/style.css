@@ -51,11 +51,12 @@ ion-pane {
   font-size: 10pt;
   font-weight: 700;
   text-align: center;
+  overflow: none;
 }
 
 .portrait {
   font-family: 'Homenaje', sans-serif;
-  font-size: 32pt;
+  font-size: 30pt;
   color: #555;
   text-align: center;
   vertical-align: middle;
@@ -106,6 +107,17 @@ ion-pane {
   flex: 1;
   -webkit-flex: 1;
 }
+
+.tap-to-select {
+  background-color: #68393c;
+  text-align: center;
+  padding-top: 5%;
+  font-size: 12pt;
+  font-weight: 700;
+  flex: 1;
+  -webkit-flex: 1;
+}
+
 
 .right-footer-button {
   height: 67px;
