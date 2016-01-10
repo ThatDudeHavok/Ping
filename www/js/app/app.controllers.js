@@ -21,7 +21,8 @@ app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $wind
     $scope.getAllContacts();
   };
 
-  $scope.addContactToFriendsList = function(p, c) {
+  $scope.addContactToFriendsList = function(id, p, c) {
+    $scope.selected[id] = !$scope.selected[id];
   };
 
   $scope.addSelectedContacts = function() {
@@ -79,6 +80,7 @@ app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $wind
   };
 
   $scope.profiles = [];
+  $scope.selected = {};
 
   $scope.getAllContacts = function() {
     $cordovaContacts.find({}).then(function(allContacts) {
@@ -87,6 +89,8 @@ app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $wind
       var tmpc = [];
       var contactWidth = window.innerWidth * (.9/3);
       var ctx = document.createElement('canvas').getContext('2d');
+
+      //console.log(allContacts);
 
       allContacts.forEach(function(e, i) {
         if(Array.isArray(e.phoneNumbers)) {
@@ -104,7 +108,7 @@ app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $wind
         var width = ctx.measureText(txt).width;
         var split = txt.split(' ');
 
-        if(width > contactWidth) {
+        if(width > contactWidth-6) {
           if(split.length > 1) txt = split.slice(0, split.length-1).join(' ') + ' ' + split[split.length-1].substr(0, 1) + '.';
         }
 

@@ -54,6 +54,10 @@ ion-pane {
   overflow: none;
 }
 
+.contact-selected {
+  background-color: #0e9200;
+}
+
 .portrait {
   font-family: 'Homenaje', sans-serif;
   font-size: 30pt;
@@ -111,8 +115,8 @@ ion-pane {
 .tap-to-select {
   background-color: #68393c;
   text-align: center;
-  padding-top: 5%;
-  font-size: 12pt;
+  font-size: 14pt;
+  line-height: 67px;
   font-weight: 700;
   flex: 1;
   -webkit-flex: 1;

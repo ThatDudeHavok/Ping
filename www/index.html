@@ -59,14 +59,14 @@
 
             <div class="contact-list">
               <div class="row" ng-repeat="c in phoneContacts">
-                <div class="contact-item" ng-repeat="contact in c" ng-click="addContactToFriendsList($parent.$index, $index)"><div class="portrait" ng-style="profiles[contact.id]">{{(contact.photos !== null)?'':contact.initials}}</div>{{contact.displayname}}</div>
+                <div class="contact-item" ng-repeat="contact in c" ng-class="selected[contact.id]?'contact-selected':''" ng-click="addContactToFriendsList(contact.id, $parent.$index, $index)"><div class="portrait" ng-style="profiles[contact.id]">{{(contact.photos !== null)?'':contact.initials}}</div>{{contact.displayname}}</div>
               </div>
             </div>
             <div class="menu-footer">
               <div class="left-footer-button">
               </div>
               <div class="tap-to-select">
-                Tap to select a contact
+                Tap to select
               </div>
               <div class="right-footer-button" ng-click="addSelectedContacts()">
               </div>
