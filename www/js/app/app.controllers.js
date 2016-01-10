@@ -26,7 +26,13 @@ app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $wind
   };
 
   $scope.addSelectedContacts = function() {
+    var selected = Object.keys($scope.selected).filter(e => $scope.selected[e]);
+    selected.forEach(e => console.log(e));
+  };
+
+  $scope.cancelAddContacts = function() {
     $scope.state.id = 'main';
+    $scope.selected = {};
   };
 
   itemsRef.on('child_added', function(snap) {

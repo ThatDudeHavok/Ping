@@ -126,6 +126,8 @@ ion-pane {
   height: 67px;
   width: 50%;
   background-image: url("../img/add_selected.png");
+  background-repeat: no-repeat;
+  background-position: center; 
   background-color: #68393c;
   border-left-style: solid !important;
   border-left-width: 1px !important;
@@ -136,6 +138,8 @@ ion-pane {
   height: 67px;
   width: 50%;
   background-image: url("../img/cancel_add.png");
+  background-repeat: no-repeat;
+  background-position: center; 
   background-color: #68393c;
   border-right-style: solid !important;
   border-right-width: 1px !important;
