@@ -118,6 +118,7 @@ app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $wind
 
         e.initials = split[0].substr(0, 1) + split[split.length-1].substr(0, 1);
         e.displayname = txt;
+        e.contact_key = ionic.Platform.platform() + '_' + e.id;
 
         if(e.photos) {
           if(ionic.Platform.platform() === 'android') {

@@ -3,7 +3,12 @@
 angular.module('Ping.app.services', [])
 
 .factory('FriendsList', function() {
-  var FriendsList = [];
+  var FriendsList = JSON.parse(localStorage.ping_friendslist || '[]');
+
+  FriendsList.addFriend = function(e) {
+    if(!_.contains(_.pluck(FriendsList, 'contact_key'), e.contact_key)) FriendsList.push(e);
+    console.log(FriendsList);
+  };
 
   return FriendsList;
 })
