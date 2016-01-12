@@ -60,10 +60,16 @@ app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $wind
   };
   $scope.token = 'CAADLjtrgsB8BACdtn4FbjKxjger4YsMIXS0ojzZAuqqqdZBDLDl1Gu0jR4lo1mJhQZA8EDLJnxAc8hk2rNlGqQb6rCH1jhpbJtZAcrunTka4JHT1y1HYI4Bgp4yAr9i7XriYZCkezzBuHzvOD4QIuLmrDd77sOpJrtdBDsJImFcbn2N0R5nwOpPZB1554FuZCJZC9R3qaddX8AZDZD';
 
-  $scope.authFB = function() {
+  $scope.pingViaSMS = function(tpl) {
     
-    $cordovaSocialSharing.shareViaSMS('galavanting around\n  (_|     (_|', '6086160254', function(res) {
+    var c = $scope.contact_to_ping;
+    if(c.phoneNumbers.length > 1) {
+    }
+    var num = c.phoneNumbers[0];
+    $cordovaSocialSharing.shareViaSMS(tpl.tpl, num, function(res) {
       console.log(res);
+      $scope.state.id = 'main';
+      $scope.contact_to_ping = null;
     }, function(err) {
       throw err;
     });
@@ -71,8 +77,9 @@ app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $wind
 
   $scope.messageTemplates = MessageTpls;
 
-  $scope.pingContact = function(p, c) {
-    console.log(p, c);
+  $scope.pingContact = function(contact) {
+    $scope.contact_to_ping = contact;
+    $scope.state.id = 'pingContact';
   };
 
   $scope.contacts = displayify(FriendsList);
@@ -93,8 +100,7 @@ app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $wind
   }
 
   $scope.state = {
-    //id: 'main'
-    id: 'pingContact'
+    id: 'main'
   };
 
   $scope.profiles = [];
