@@ -3,7 +3,7 @@
 
 var app = angular.module('Ping.app.controllers', []);
 
-app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $window, $http, $cordovaSocialSharing, $cordovaContacts, MessageTpls, $cordovaFile) {
+app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $window, $http, $cordovaSocialSharing, $cordovaContacts, MessageTpls, $cordovaFile, FriendsList) {
   var itemsRef = new Firebase("https://shining-heat-1764.firebaseio.com/items");
   var Items = $firebaseArray(itemsRef);
   $scope.items = Items;
@@ -16,6 +16,8 @@ app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $wind
     }
   };
 
+  $scope.contactsHash = {};
+
   $scope.addContacts = function() {
     $scope.state.id = 'addContacts';
     $scope.getAllContacts();
@@ -27,10 +29,20 @@ app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $wind
 
   $scope.addSelectedContacts = function() {
     var selected = Object.keys($scope.selected).filter(e => $scope.selected[e]);
-    selected.forEach(e => console.log(e));
+    selected.forEach(e => {
+      console.log(e);
+      FriendsList.addFriend($scope.contactsHash[e]);
+    });
+    FriendsList.save();
+    $scope.contacts = displayify(FriendsList);
+    resetSelectState();
   };
 
   $scope.cancelAddContacts = function() {
+    resetSelectState();
+  };
+
+  function resetSelectState() {
     $scope.state.id = 'main';
     $scope.selected = {};
   };
@@ -63,9 +75,9 @@ app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $wind
     console.log(p, c);
   };
 
-  $scope.contacts = [[]];
+  $scope.contacts = displayify(FriendsList);
 
-  /* (function(arr) {
+  function displayify(arr) {
       var contacts = [];
       var tmpc = [];
       arr.forEach(function(e) {
@@ -77,9 +89,8 @@ app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $wind
       });
       contacts.push(tmpc);
       if(tmpc.length === 3) contacts.push([]);
-      $scope.contacts = contacts;
-  })([1,2,3,4,5]);
-  */
+      return contacts;
+  }
 
   $scope.state = {
     id: 'main'
@@ -119,6 +130,7 @@ app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $wind
         e.initials = split[0].substr(0, 1) + split[split.length-1].substr(0, 1);
         e.displayname = txt;
         e.contact_key = ionic.Platform.platform() + '_' + e.id;
+        if(_.contains(_.pluck(FriendsList, 'contact_key'), e.contact_key)) return;
 
         if(e.photos) {
           if(ionic.Platform.platform() === 'android') {
@@ -140,6 +152,7 @@ app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $wind
         }
 
         tmpc.push(e);
+        $scope.contactsHash[e.id] = e;
       });
       contacts.push(tmpc);
 

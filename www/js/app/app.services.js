@@ -7,8 +7,11 @@ angular.module('Ping.app.services', [])
 
   FriendsList.addFriend = function(e) {
     if(!_.contains(_.pluck(FriendsList, 'contact_key'), e.contact_key)) FriendsList.push(e);
-    console.log(FriendsList);
   };
+
+  FriendsList.save = function() {
+    localStorage.ping_friendslist = JSON.stringify(FriendsList);
+  }
 
   return FriendsList;
 })
