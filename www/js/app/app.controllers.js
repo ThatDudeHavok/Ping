@@ -28,8 +28,8 @@ app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $wind
   };
 
   $scope.addSelectedContacts = function() {
-    var selected = Object.keys($scope.selected).filter(e => $scope.selected[e]);
-    selected.forEach(e => {
+    var selected = Object.keys($scope.selected).filter(function(e) { return $scope.selected[e]; });
+    selected.forEach(function(e) {
       console.log(e);
       FriendsList.addFriend($scope.contactsHash[e]);
     });
@@ -63,9 +63,10 @@ app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $wind
   $scope.pingViaSMS = function(tpl) {
     
     var c = $scope.contact_to_ping;
+    console.log(c);
     if(c.phoneNumbers.length > 1) {
     }
-    var num = c.phoneNumbers[0];
+    var num = c.phoneNumbers[0].value;
     $cordovaSocialSharing.shareViaSMS(tpl.tpl, num, function(res) {
       console.log(res);
       $scope.state.id = 'main';
@@ -78,6 +79,7 @@ app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $wind
   $scope.messageTemplates = MessageTpls;
 
   $scope.pingContact = function(contact) {
+    console.log(contact);
     $scope.contact_to_ping = contact;
     $scope.state.id = 'pingContact';
   };
