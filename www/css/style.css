@@ -1,1 +1,177 @@
 /* Empty. Add your own CSS if you like */
+
+body {
+  font-family: 'PT Sans', sans-serif;
+  font-weight: 400;
+}
+
+ion-pane {
+  background-image: url("../img/ping_bg.png");
+  background-size: 100% 100vh;
+}
+
+.main-menu {
+  height: 93.75vh;
+  margin: 3.125vh 5vw;
+  display: flex;
+  display: -webkit-flex;
+  flex-flow: column;
+  -webkit-flex-flow: column;
+  border-radius: 25px;
+  border-style: solid;
+  border-width: 1px 1px 0px 1px;
+  border-color: rgba(255, 255, 255, 0.1875);
+  background-color: rgba(15, 207, 200, 0.1125);
+  position: relative;
+}
+
+.send-message-menu {
+  height: 60vh;
+  margin: 20vh 5vw;
+  display: flex;
+  display: -webkit-flex;
+  flex-flow: column;
+  -webkit-flex-flow: column;
+  border-radius: 25px;
+  border-style: solid;
+  border-width: 1px 1px 0px 1px;
+  border-color: rgba(255, 255, 255, 0.1875);
+  background-color: rgba(15, 207, 200, 0.1125);
+  position: relative;
+}
+
+.tpl-display {
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: rgba(255, 255, 255, 0.6);
+  padding: 15px 20px;
+}
+
+.menu-header {
+  height: 48px;
+  text-align: center;
+  color: white;
+  padding: 12px 0px;
+  font-size: 14pt;
+  background-color: transparent;
+  border-bottom-style: solid !important;
+  border-bottom-width: 2px !important;
+  border-bottom-color: white !important;
+}
+
+.contact-list {
+  background: rgba(255, 255, 255, 0.4);
+  flex: 1;
+  -webkit-flex: 1;
+  overflow: scroll;
+  height: 100%;
+}
+
+.contact-item {
+  width: 33.33%;
+  color: white;
+  font-size: 10pt;
+  font-weight: 700;
+  text-align: center;
+  overflow: none;
+}
+
+.contact-selected {
+  background-color: #0e9200;
+}
+
+.portrait {
+  font-family: 'Homenaje', sans-serif;
+  font-size: 30pt;
+  color: #555;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 64px;
+  width: 64px;
+  height: 64px;
+  margin: 10px auto;
+  margin-bottom: 3px;
+  background-color: white;
+  border: 1px solid rgba(0,0,0,0.5);
+  border-radius: 32px;
+  -webkit-border-radius: 32px;
+  -moz-border-radius: 32px;
+}
+
+.menu-footer {
+  height: 67px;
+  width: 100%;
+  color: white;
+  display: flex;
+  display: -webkit-flex;
+  -webkit-flex-flow: row;
+  flex-flow: row;
+  background-color: transparent;
+  border-top-style: solid !important;
+  border-top-width: 1px !important;
+  border-top-color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.left-footer-button {
+  height: 67px;
+  width: 67px;
+  background-image: url("../img/left_button.png");
+  background-size: 67px 67px;
+}
+
+.add-contact {
+  background-image: url("../img/add.png");
+  background-size: 100% 100%;
+}
+
+.your-pings {
+  background-color: #68393c;
+  text-align: center;
+  line-height: 67px;
+  font-size: 16pt;
+  font-weight: 700;
+  flex: 1;
+  -webkit-flex: 1;
+}
+
+.tap-to-select {
+  background-color: #68393c;
+  text-align: center;
+  font-size: 14pt;
+  line-height: 67px;
+  font-weight: 700;
+  flex: 1;
+  -webkit-flex: 1;
+}
+
+.add-selected-button {
+  height: 67px;
+  width: 50%;
+  background-image: url("../img/add_selected.png");
+  background-repeat: no-repeat;
+  background-position: center; 
+  background-color: #68393c;
+  border-left-style: solid !important;
+  border-left-width: 1px !important;
+  border-left-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.cancel-add-button {
+  height: 67px;
+  width: 50%;
+  background-image: url("../img/cancel_add.png");
+  background-repeat: no-repeat;
+  background-position: center; 
+  background-color: #68393c;
+  border-right-style: solid !important;
+  border-right-width: 1px !important;
+  border-right-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.right-footer-button {
+  height: 67px;
+  width: 67px;
+  background-image: url("../img/right_button.png");
+  background-size: 67px 67px;
+}
+

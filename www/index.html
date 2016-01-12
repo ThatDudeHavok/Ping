@@ -9,11 +9,17 @@
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
     -->
+    <link href='https://fonts.googleapis.com/css?family=PT+Sans: 400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Homenaje' rel='stylesheet' type='text/css'>
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="lib/ngCordova/dist/ng-cordova.min.js"></script>
+    <script src="lib/underscore/underscore-min.js"></script>
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
     <!-- your app's js -->
+    <script src="https://cdn.firebase.com/js/client/2.3.0/firebase.js"></script>
+    <script src="https://cdn.firebase.com/libs/angularfire/1.1.3/angularfire.min.js"></script>
     <script src="js/app.js"></script>
     <script src="js/app/app.controllers.js"></script>
     <script src="js/common/common.directives.js"></script> 
@@ -21,11 +27,63 @@
   </head>
   <body ng-app="Ping">
     <ion-pane>
-      <ion-header-bar class="bar-stable">
-        <h1 class="title">Ionic Blank Starter</h1>
-      </ion-header-bar>
-      <ion-content>
-        <h2> things and stuffs </h2>
+      <ion-content class="ping-app" ng-controller="PingCtrl" scroll="false">
+        <div class="card main-menu" ng-show="state.id === 'main'">
+
+          <div class="menu-header">
+            Ping Someone
+          </div>
+
+            <div class="contact-list">
+              <div class="row" ng-repeat="c in contacts">
+                <div class="contact-item" ng-repeat="contact in c" ng-click="pingContact(contact)"><div class="portrait" ng-style="profiles[contact.id]">{{(contact.photos !== null)?'':contact.initials}}</div>{{contact.displayname}}</div>
+                <div class="contact-item" ng-click="addContacts()" ng-show="$index == contacts.length-1"><div class="portrait add-contact"></div>Add Friends</div>
+              </div>
+            </div>
+            <div class="menu-footer">
+              <div class="left-footer-button">
+              </div>
+              <div class="your-pings">
+                Your Pings
+              </div>
+              <div class="right-footer-button">
+              </div>
+            </div>
+
+        </div>
+
+        <div class="card main-menu" ng-show="state.id === 'addContacts'">
+
+          <div class="menu-header">
+            Add Your Contacts as Friends
+          </div>
+
+            <div class="contact-list">
+              <div class="row" ng-repeat="c in phoneContacts">
+                <div class="contact-item" ng-repeat="contact in c" ng-class="selected[contact.id]?'contact-selected':''" ng-click="addContactToFriendsList(contact.id, $parent.$index, $index)"><div class="portrait" ng-style="profiles[contact.id]">{{(contact.photos !== null)?'':contact.initials}}</div>{{contact.displayname}}</div>
+              </div>
+            </div>
+            <div class="menu-footer">
+              <div class="cancel-add-button" ng-click="cancelAddContacts()">
+              </div>
+              <div class="add-selected-button" ng-click="addSelectedContacts()">
+              </div>
+            </div>
+
+        </div>
+
+        <div class="card send-message-menu" ng-show="state.id === 'pingContact'">
+
+          <div class="menu-header">
+            Pinging {{contact_to_ping.name.firstName}}
+          </div>
+
+            <div class="contact-list">
+              <pre class="tpl-display" ng-repeat="tpl in messageTemplates" ng-click="pingViaSMS(tpl)">{{tpl.tpl}}</pre>
+            </div>
+        </div>
+
+
       </ion-content>
     </ion-pane>
   </body>
