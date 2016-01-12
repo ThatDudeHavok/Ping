@@ -93,7 +93,8 @@ app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $wind
   }
 
   $scope.state = {
-    id: 'main'
+    //id: 'main'
+    id: 'pingContact'
   };
 
   $scope.profiles = [];

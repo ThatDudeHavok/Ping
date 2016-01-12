@@ -19,10 +19,31 @@ ion-pane {
   -webkit-flex-flow: column;
   border-radius: 25px;
   border-style: solid;
-  border-width: 1px;
+  border-width: 1px 1px 0px 1px;
   border-color: rgba(255, 255, 255, 0.1875);
   background-color: rgba(15, 207, 200, 0.1125);
   position: relative;
+}
+
+.send-message-menu {
+  height: 60vh;
+  margin: 20vh 5vw;
+  display: flex;
+  display: -webkit-flex;
+  flex-flow: column;
+  -webkit-flex-flow: column;
+  border-radius: 25px;
+  border-style: solid;
+  border-width: 1px 1px 0px 1px;
+  border-color: rgba(255, 255, 255, 0.1875);
+  background-color: rgba(15, 207, 200, 0.1125);
+  position: relative;
+}
+
+.tpl-display {
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: rgba(255, 255, 255, 0.6);
 }
 
 .menu-header {
