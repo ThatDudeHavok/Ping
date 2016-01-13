@@ -15,7 +15,6 @@ angular.module('Ping', [
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
-
     if(window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true); 
     }
@@ -24,15 +23,19 @@ angular.module('Ping', [
       StatusBar.styleDefault();
     }
 
+    // Phonegap is being used through pluginConfig
+
+
+    
     var push = new Ionic.Push({
       "debug": true,
-      "onNotification": function(notification){
+      "onNotification": function(notification) {
         var payload = notification.payload;
         console.log(notification, payload); 
       },
-      "onRegister": function(data) {
-        console.log(data.token);
-      },
+//      "onRegister": function(data) {
+//        console.log('onRegister - Token:', data.token);
+//      },
       "pluginConfig": {
         "ios": {
           "badge": true
@@ -43,11 +46,50 @@ angular.module('Ping', [
         } 
       } 
     });
+    
+    Ionic.io();
+    
+    var setToken = function(pushToken) {
+      console.log('Registered token:', pushToken.token); 
+      user.addPushToken(pushtoken.token);
+      user.save();
+    };
+    
+    var callback = function(pushToken) {
+      console.log(pushToken.token); 
+    };
 
-    push.register(function(token) {
+    // this will give a fresh user or previously saved 'current user' 
+    var user = Ionic.User.current();
 
-      console.log("Device token", token.token);
-    }); 
-   
+    // if the user doesn't have an id, one is given
+    if(!user.id) {
+      user.id = Ionic.User.anonymousId();
+      //user.id = 'your-custom-user-id'; 
+    } 
+    
+    
+
+    var name = user.get('name'); 
+    if(ionic.Platform.isAndroid()) {
+      user.set('name', 'phone');
+    } else {
+      user.set('name', 'computer'); 
+    }
+    
+
+    push.register(setToken);   
+    console.log('user data:', user);
+
+    var success = function(response) {
+      console.log('you\'re gewd'); 
+      console.log(user.get('name')) 
+      console.log(user);
+    };
+
+    var failure = function(response) {
+      console.log('You gone and fucked up'); 
+    };
+    
   })
 }) 
