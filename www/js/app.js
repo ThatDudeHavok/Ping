@@ -6,8 +6,8 @@
 angular.module('Ping', [
     'ngCordova',
     'ionic',
-    'ionic.service.core',
-    'ionic.service.push',
+//    'ionic.service.core',
+//    'ionic.service.push',
     'Ping.app.controllers',
     'Ping.app.directives',
     'Ping.app.services',
@@ -25,19 +25,27 @@ angular.module('Ping', [
       StatusBar.styleDefault();
     }
 
+    Ionic.io();
+
     // Phonegap is being used through pluginConfig
-
-
+    
+    var user = Ionic.User.current();
+    
+    if(!user.id) {
+      user.id = Ionic.User.anonymousId();
+      //user.id = 'custom-user-id' 
+    }
     
     var push = new Ionic.Push({
       "debug": true,
       "onNotification": function(notification) {
         var payload = notification.payload;
         console.log(notification, payload); 
+        alert(notification); 
       },
-//      "onRegister": function(data) {
-//        console.log('onRegister - Token:', data.token);
-//      },
+      "onRegister": function(data) {
+        console.log('onRegister - Token:', data.token);
+      },
       "pluginConfig": {
         "ios": {
           "badge": true
@@ -47,67 +55,17 @@ angular.module('Ping', [
           "iconColor": "#343434" 
         } 
       } 
-    });
-    
-    var callback = function(pushToken) {
-      console.log(pushToken.token);
+    });   console.log(push);
+   
+    var callback = function(token) { 
+      user.addPushToken(token);
+      user.save();
     }
 
+    
     push.register(callback);
-
-    console.log(push);
+    
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
   });
-})
-.controller('PingController', function() {
-
-  push.register(function(token) {
-    console.log("Device token", token.token);
-  }); 
-    Ionic.io();
-    
-    var setToken = function(pushToken) {
-      console.log('Registered token:', pushToken.token); 
-      user.addPushToken(pushtoken.token);
-      user.save();
-    };
-    
-    var callback = function(pushToken) {
-      console.log(pushToken.token); 
-    };
-
-    // this will give a fresh user or previously saved 'current user' 
-    var user = Ionic.User.current();
-
-    // if the user doesn't have an id, one is given
-    if(!user.id) {
-      user.id = Ionic.User.anonymousId();
-      //user.id = 'your-custom-user-id'; 
-    } 
-    
-    
-
-    var name = user.get('name'); 
-    if(ionic.Platform.isAndroid()) {
-      user.set('name', 'phone');
-    } else {
-      user.set('name', 'computer'); 
-    }
-    
-
-    push.register(setToken);   
-    console.log('user data:', user);
-
-    var success = function(response) {
-      console.log('you\'re gewd'); 
-      console.log(user.get('name')) 
-      console.log(user);
-    };
-
-    var failure = function(response) {
-      console.log('You gone and fucked up'); 
-    };
-    
-  })
-}) 
+});
