@@ -55,7 +55,8 @@ angular.module('Ping', [
           "iconColor": "#343434" 
         } 
       } 
-    });   console.log(push);
+    });  
+    console.log(push);
    
     var callback = function(token) { 
       user.addPushToken(token);

@@ -218,40 +218,37 @@ app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $wind
       }
     });
   }
+
+  $scope.sendPing = function() {
+    console.log('sendPing hit');
+    var privateKey = "4f517b480392b68eab406a190c018724a55a6e1ccdca5f47";
+    var user_ids = ["ffc4345b-f3d5-4eb6-b943-6ccce1d30403"];
+    var appId = "11acd47c"; 
+    var tokens = ["dhbXPomHCys:APA91bGNHcFI8Z9YvVS78kjEfnMq4WiV0Lql8bM-Hj5tbbpEpA1W88kN7kua_--l8_SKEOnWPDh3jrdka6ovlWq47inhn8U975DfndnlNgCyzRRin3N9OgWcjaC8NYFYaIdUvxn1l7RG"]
+    var auth = btoa(privateKey + ":");
+
+    var req = {
+      method: "POST",
+      url: "https://push.ionic.io/api/v1/push",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Ionic-Application-Id": "11acd47c",
+        "Authorization": "basic " + auth 
+      },
+      data: {
+        "user_ids": user_ids,
+        "notification": {
+          "alert": "Illuminati confirmed" 
+        } 
+      } 
+    }
+    
+    $http(req).success(function(resp) {
+      console.log("PUSH SUCCESS!"); 
+    }).error(function(resp) {
+      console.log(resp);
+    });
+
+  }; // end fn sendPing
 })
-
-
- 
-//  var privateKey = "4f517b480392b68eab406a190c018724a55a6e1ccdca5f47";
-//  var user_ids = [];
-//  var appId = "11acd47c"; 
-//  var tokens = ["1f87fe46-1205-4783-b6f1-639bd3fa3b04"]
-//  var auth = btoa(privateKey + ":");
-//
-//  var req = {
-//    method: "POST",
-//    url: "https://push.ionic.io/api/v1/push",
-//    headers: {
-//      "Content-Type": "application/json",
-//      "X-Ionic-Application-Id": "11acd47c",
-//      "Authorization": "basic " + auth 
-//    },
-//    data: {
-//      "user_ids": ["db44f7c9-c96c-48af-a1eb-aa28236f1047"],
-//      "notification": {
-//        "alert": "Illuminati confirmed" 
-//      } 
-//    } 
-//  }
-//
-////    $http(req).success(function(resp) {
-////      console.log("PUSH SUCCESS!"); 
-////    }).error(function(resp) {
-////      console.log("push error."); 
-////      console.log(req);
-////      console.log(resp); 
-////    }); 
-//  };
-//});
-
 
