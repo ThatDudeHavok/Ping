@@ -218,13 +218,14 @@ app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $wind
       }
     });
   }
-
+  
+  // currently pings need to be sent to hardcoded user_ids. 
   $scope.sendPing = function() {
     console.log('sendPing hit');
     var privateKey = "4f517b480392b68eab406a190c018724a55a6e1ccdca5f47";
-    var user_ids = ["ffc4345b-f3d5-4eb6-b943-6ccce1d30403"];
+    var user_ids = [""];
     var appId = "11acd47c"; 
-    var tokens = ["dhbXPomHCys:APA91bGNHcFI8Z9YvVS78kjEfnMq4WiV0Lql8bM-Hj5tbbpEpA1W88kN7kua_--l8_SKEOnWPDh3jrdka6ovlWq47inhn8U975DfndnlNgCyzRRin3N9OgWcjaC8NYFYaIdUvxn1l7RG"]
+    var tokens = [""]
     var auth = btoa(privateKey + ":");
 
     var req = {
