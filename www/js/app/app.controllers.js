@@ -1,6 +1,5 @@
 var app = angular.module('Ping.app.controllers', []);
 
-
 app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $window, $http, $cordovaSocialSharing, $cordovaContacts, MessageTpls, $cordovaFile, FriendsList) {
   var itemsRef = new Firebase("https://shining-heat-1764.firebaseio.com/items");
   var Items = $firebaseArray(itemsRef);
@@ -252,4 +251,3 @@ app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $wind
 
   }; // end fn sendPing
 })
-

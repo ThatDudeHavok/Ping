@@ -6,8 +6,6 @@
 angular.module('Ping', [
     'ngCordova',
     'ionic',
-//    'ionic.service.core',
-//    'ionic.service.push',
     'Ping.app.controllers',
     'Ping.app.directives',
     'Ping.app.services',
@@ -35,6 +33,9 @@ angular.module('Ping', [
       user.id = Ionic.User.anonymousId();
       //user.id = 'custom-user-id' 
     }
+    // Phonegap is being used through pluginConfig
+
+
     
     var push = new Ionic.Push({
       "debug": true,
