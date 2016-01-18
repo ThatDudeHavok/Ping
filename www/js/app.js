@@ -25,17 +25,12 @@ angular.module('Ping', [
 
     Ionic.io();
 
-    // Phonegap is being used through pluginConfig
-    
     var user = Ionic.User.current();
     
     if(!user.id) {
       user.id = Ionic.User.anonymousId();
       //user.id = 'custom-user-id' 
     }
-    // Phonegap is being used through pluginConfig
-
-
     
     var push = new Ionic.Push({
       "debug": true,
@@ -66,8 +61,5 @@ angular.module('Ping', [
 
     
     push.register(callback);
-    
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
   });
 });
