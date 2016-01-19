@@ -1,6 +1,3 @@
-// Controllers for project
-
-
 var app = angular.module('Ping.app.controllers', []);
 
 app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $window, $http, $cordovaSocialSharing, $cordovaContacts, MessageTpls, $cordovaFile, FriendsList) {
@@ -219,6 +216,38 @@ app.controller('PingCtrl', function($scope, $firebaseArray, $firebaseAuth, $wind
         console.log(error);
       }
     });
-  };
-});
+  }
+  
+  // currently pings need to be sent to hardcoded user_ids. 
+  $scope.sendPing = function() {
+    console.log('sendPing hit');
+    var privateKey = "4f517b480392b68eab406a190c018724a55a6e1ccdca5f47";
+    var user_ids = [""];
+    var appId = "11acd47c"; 
+    var tokens = [""]
+    var auth = btoa(privateKey + ":");
 
+    var req = {
+      method: "POST",
+      url: "https://push.ionic.io/api/v1/push",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Ionic-Application-Id": "11acd47c",
+        "Authorization": "basic " + auth 
+      },
+      data: {
+        "user_ids": user_ids,
+        "notification": {
+          "alert": "Illuminati confirmed" 
+        } 
+      } 
+    }
+    
+    $http(req).success(function(resp) {
+      console.log("PUSH SUCCESS!"); 
+    }).error(function(resp) {
+      console.log(resp);
+    });
+
+  }; // end fn sendPing
+})
